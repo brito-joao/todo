@@ -1,0 +1,24 @@
+body{
+
+    form{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 70vh;
+        input{
+            
+            border-radius: 0.5em;
+        }
+        .misc{
+            background-color: red;
+            
+            
+        }
+        
+    }
+    background-color: black;
+}
+.span-3{
+    grid-column: span 3;
+
+}
+
