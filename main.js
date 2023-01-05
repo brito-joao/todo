@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: black;\n}\nbody form {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  max-width: 70vh;\n}\nbody form input {\n  border-radius: 0.5em;\n}\nbody form .misc {\n  background-color: red;\n}\n\n.span-3 {\n  grid-column: span 3;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: black;\n}\nbody form {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\nbody form input {\n  width: 10em;\n  border-radius: 0.5em;\n}\n\n.span-3 {\n  grid-column: span 3;\n}\n\n.notes {\n  color: white;\n  display: flex;\n}\n.notes .note {\n  border: solid red;\n}\n.notes .title {\n  font-size: 1.2rem;\n}\n.notes .description {\n  font-size: 0.9rem;\n}\n.notes div {\n  display: block;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -455,6 +455,82 @@ module.exports = function (cssWithMappingToString) {
   return list;
 };
 
+/***/ }),
+/* 11 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getNotes": () => (/* binding */ getNotes),
+/* harmony export */   "removeNotes": () => (/* binding */ removeNotes),
+/* harmony export */   "storeNotes": () => (/* binding */ storeNotes)
+/* harmony export */ });
+function storeNotes(key, value){
+    const valueString= JSON.stringify(value);
+
+    localStorage.setItem(key, valueString);
+}
+
+function getNotes(key){
+    const valueString= localStorage.getItem(key);
+
+    return JSON.parse(valueString);
+}
+
+function removeNotes(key){
+
+    localStorage.removeItem(key);
+};
+
+
+/***/ }),
+/* 12 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "displayNotes": () => (/* binding */ displayNotes),
+/* harmony export */   "getForm": () => (/* binding */ getForm)
+/* harmony export */ });
+/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+
+
+function getForm(user){
+    
+    const form = document.querySelector('#form');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form); 
+
+    
+    const title_form = formData.get('title');
+    console.log(title_form);
+    const description_form= formData.get("description");
+    const category_form=formData.get("category");
+    const due_form=formData.get("due");
+    const importance_form=formData.get("priority");
+    user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form};
+    
+    form.reset();
+
+    displayNotes(user.current_notes);
+    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)("testing2",user.current_notes);
+
+    //create a function that makes an html thing for the todos
+  });
+
+}
+
+
+function displayNotes(note_to_display){
+    const notes= document.querySelector(".notes");
+    notes.innerHTML+=`<div class='note'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button '>remove</button></div>`;
+}
+
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -534,9 +610,38 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _user_inputs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+
 
 
 console.log("hello world");
+
+
+
+
+//today >>> link the forms result to the js page and then store it in local storage
+
+
+//storeNotes("testing",test1);
+//console.log(getNotes("testing1"));
+//const test2= {title:"clean house",description:"clean like it's the president's house", category:"crazy",due:"today",importance:"important" }
+//storeNotes("testing1",test2);
+
+function userInfo(){
+    //notes will be the main array that stores all note objects
+    this.past_notes=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNotes)("testing2");  
+    this.all_notes=[];
+    this.current_notes=null;
+
+
+
+}
+const user1= new userInfo();
+(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.getForm)(user1);
+(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayNotes)(user1.past_notes)
+console.log(user1.current_notes);
+
 })();
 
 /******/ })()
