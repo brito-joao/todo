@@ -1,24 +1,42 @@
 body{
-
+    
     form{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        max-width: 70vh;
+        
         input{
-            
+            width: 10em;
             border-radius: 0.5em;
         }
-        .misc{
-            background-color: red;
-            
-            
-        }
+        
         
     }
     background-color: black;
+    
+    
 }
 .span-3{
     grid-column: span 3;
-
+    
 }
 
+.notes{
+    color:white;
+    display: flex;
+
+    .note{
+        border:solid red;
+    }
+
+    .title{
+        font-size: 1.2rem;
+
+    }
+    .description{
+        font-size: 0.9rem;
+
+    }
+    div{
+        display: block;
+    }
+}
