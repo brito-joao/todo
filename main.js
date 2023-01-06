@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  background-color: black;\n}\nbody form {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\nbody form input {\n  width: 10em;\n  border-radius: 0.5em;\n}\n\n.span-3 {\n  grid-column: span 3;\n}\n\n.notes {\n  color: white;\n  display: flex;\n}\n.notes .note {\n  border: solid red;\n}\n.notes .title {\n  font-size: 1.2rem;\n}\n.notes .description {\n  font-size: 0.9rem;\n}\n.notes div {\n  display: block;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  color: white;\n  max-width: 100vh;\n  background-color: black;\n}\nbody .title1 {\n  text-align: center;\n}\nbody form {\n  border: solid red;\n  padding: 0.3em;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\nbody form input {\n  border-radius: 0.5em;\n  padding-left: 0.5em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n}\nbody form * {\n  width: 13vh;\n}\n\n.span-3 {\n  grid-column: span 3;\n  width: 40vh;\n}\n\n.notes {\n  color: white;\n}\n.notes .note {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border: solid red;\n  gap: 0;\n}\n.notes .title {\n  font-size: 1.2rem;\n}\n.notes .description {\n  font-size: 0.9rem;\n}\n.notes div {\n  display: flex;\n  gap: 1em;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -489,6 +489,7 @@ function removeNotes(key){
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deleteNotes": () => (/* binding */ deleteNotes),
 /* harmony export */   "displayNotes": () => (/* binding */ displayNotes),
 /* harmony export */   "getForm": () => (/* binding */ getForm)
 /* harmony export */ });
@@ -525,10 +526,23 @@ function getForm(user){
 
 
 function displayNotes(note_to_display){
-    const notes= document.querySelector(".notes");
-    notes.innerHTML+=`<div class='note'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button '>remove</button></div>`;
+  const notes= document.querySelector(".notes");
+  notes.innerHTML+=`<div class='note ${"id-note"}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value=${"id-note"}>remove</button></div>`;
+  deleteNotes();
 }
-
+function deleteNotes(){
+  
+  const button=document.querySelector(".button");
+  button.addEventListener("click",()=>{
+    
+    let note_class=button.value;
+    const note=document.querySelector(`.${note_class}`);
+    console.log(note, "note correct");
+    note.remove();
+    //change this to the correct address;
+    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.removeNotes)("testing2");
+  })
+}
 
 
 /***/ })
