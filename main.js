@@ -461,8 +461,10 @@ module.exports = function (cssWithMappingToString) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getNoteNumber": () => (/* binding */ getNoteNumber),
 /* harmony export */   "getNotes": () => (/* binding */ getNotes),
 /* harmony export */   "removeNotes": () => (/* binding */ removeNotes),
+/* harmony export */   "storeNoteNumber": () => (/* binding */ storeNoteNumber),
 /* harmony export */   "storeNotes": () => (/* binding */ storeNotes)
 /* harmony export */ });
 function storeNotes(key, value){
@@ -481,6 +483,24 @@ function removeNotes(key){
 
     localStorage.removeItem(key);
 };
+
+function storeNoteNumber(number){
+    const valueString=JSON.stringify(number);
+    localStorage.setItem(`note-${number}`,valueString);
+}
+function getNoteNumber(){
+    let current_key="";
+    for(var i=0; i< localStorage.length;i++){
+        const key= localStorage.key(i);
+        if(key.startsWith("note")){
+            const value= localStorage.getItem(key);
+            console.log(`${key}:${value} olha isso`);
+            current_key=key
+        }
+    }
+    
+    return current_key
+}
 
 
 /***/ }),
@@ -515,8 +535,9 @@ function getForm(user){
     user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form};
     
     form.reset();
-
-    displayNotes(user.current_notes);
+    console.log("hahjkljklçhjk",user.current_notes)
+    user.note_number+=1;
+    displayNotes(user.current_notes,user.note_number,user.current_note_class);
     (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)("testing2",user.current_notes);
 
     //create a function that makes an html thing for the todos
@@ -525,23 +546,31 @@ function getForm(user){
 }
 
 
-function displayNotes(note_to_display){
+function displayNotes(note_to_display,note_number,note_class){
   const notes= document.querySelector(".notes");
-  notes.innerHTML+=`<div class='note ${"id-note"}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value=${"id-note"}>remove</button></div>`;
+  console.log(note_number,"hahaha",note_to_display.title,note_class);
+  
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
   deleteNotes();
+  
+  console.log(note_number,"heeasdflksjdhfalsd note num");
+  (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNoteNumber)(note_number);
+
 }
 function deleteNotes(){
   
-  const button=document.querySelector(".button");
+  const button=document.querySelector(`.button`);
   button.addEventListener("click",()=>{
     
-    let note_class=button.value;
-    const note=document.querySelector(`.${note_class}`);
-    console.log(note, "note correct");
+    console.log("note correct",button.value,"jalasd");
+    const note=document.querySelector(`.${button.value}`);
+    
     note.remove();
-    //change this to the correct address;
-    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.removeNotes)("testing2");
+    //change this to the correct address; already changed
+    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.removeNotes)(button.value);
+    
   })
+  
 }
 
 
@@ -646,14 +675,30 @@ function userInfo(){
     //notes will be the main array that stores all note objects
     this.past_notes=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNotes)("testing2");  
     this.all_notes=[];
-    this.current_notes=null;
-
+    this.current_notes=0;
+    this.note_number=0;
+    this.current_note_class="";
+    //add a function that loads current note number
 
 
 }
 const user1= new userInfo();
 (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.getForm)(user1);
-(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayNotes)(user1.past_notes)
+try{
+    //change this and fix this part, not working
+    user1.note_number=1;
+    user1.current_note_class="note-1"//getNoteNumber(); 
+    console.log(user1.current_notes,"current notes ------",user1.note_number);
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayNotes)(user1.past_notes,user1.note_number,user1.current_note_class);
+    
+    console.log("current note",user1.current_notes)
+} catch (error){
+    console.log(error);
+    user1.current_notes=0;
+}
+
+
+//user1.current_notes=getNoteNumber();
 console.log(user1.current_notes);
 
 })();
