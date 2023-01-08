@@ -1,4 +1,4 @@
-import { storeNotes , removeNotes} from "./local_storage";
+import { storeNotes , removeNotes, storeNoteNumber} from "./local_storage";
 
 export function getForm(user){
     
@@ -19,8 +19,9 @@ export function getForm(user){
     user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form};
     
     form.reset();
-
-    displayNotes(user.current_notes);
+    console.log("hahjkljklçhjk",user.current_notes)
+    user.note_number+=1;
+    displayNotes(user.current_notes,user.note_number,user.current_note_class);
     storeNotes("testing2",user.current_notes);
 
     //create a function that makes an html thing for the todos
@@ -29,21 +30,29 @@ export function getForm(user){
 }
 
 
-export function displayNotes(note_to_display){
+export function displayNotes(note_to_display,note_number,note_class){
   const notes= document.querySelector(".notes");
-  notes.innerHTML+=`<div class='note ${"id-note"}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value=${"id-note"}>remove</button></div>`;
+  console.log(note_number,"hahaha",note_to_display.title,note_class);
+  
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
   deleteNotes();
+  
+  console.log(note_number,"heeasdflksjdhfalsd note num");
+  storeNoteNumber(note_number);
+
 }
 export function deleteNotes(){
   
-  const button=document.querySelector(".button");
+  const button=document.querySelector(`.button`);
   button.addEventListener("click",()=>{
     
-    let note_class=button.value;
-    const note=document.querySelector(`.${note_class}`);
-    console.log(note, "note correct");
+    console.log("note correct",button.value,"jalasd");
+    const note=document.querySelector(`.${button.value}`);
+    
     note.remove();
-    //change this to the correct address;
-    removeNotes("testing2");
+    //change this to the correct address; already changed
+    removeNotes(button.value);
+    
   })
+  
 }
