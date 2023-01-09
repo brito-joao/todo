@@ -19,16 +19,36 @@ export function storeNoteNumber(number){
     const valueString=JSON.stringify(number);
     localStorage.setItem(`note-${number}`,valueString);
 }
+
+//change the name of this function
 export function getNoteNumber(){
-    let current_key="";
+    
+    let notes=[];
     for(var i=0; i< localStorage.length;i++){
         const key= localStorage.key(i);
         if(key.startsWith("note")){
-            const value= localStorage.getItem(key);
+            const value= JSON.parse(localStorage.getItem(key));
             console.log(`${key}:${value} olha isso`);
-            current_key=key
+            
+            notes.push(value)
+            
         }
     }
+    console.log(notes,"the value");
     
-    return current_key
+    return findNoteNumber(notes);
+}
+
+function findNoteNumber(notes){
+    console.log(notes);
+    let note_orders=[];
+    notes.forEach((item)=>{
+        note_orders.push(item.order);
+        
+    })
+    let current_number=Math.max(...note_orders);
+    
+    
+    console.log(note_orders, "note orderss",current_number);
+    return current_number;
 }

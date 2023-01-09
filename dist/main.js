@@ -488,18 +488,38 @@ function storeNoteNumber(number){
     const valueString=JSON.stringify(number);
     localStorage.setItem(`note-${number}`,valueString);
 }
+
+//change the name of this function
 function getNoteNumber(){
-    let current_key="";
+    
+    let notes=[];
     for(var i=0; i< localStorage.length;i++){
         const key= localStorage.key(i);
         if(key.startsWith("note")){
-            const value= localStorage.getItem(key);
+            const value= JSON.parse(localStorage.getItem(key));
             console.log(`${key}:${value} olha isso`);
-            current_key=key
+            
+            notes.push(value)
+            
         }
     }
+    console.log(notes,"the value");
     
-    return current_key
+    return findNoteNumber(notes);
+}
+
+function findNoteNumber(notes){
+    console.log(notes);
+    let note_orders=[];
+    notes.forEach((item)=>{
+        note_orders.push(item.order);
+        
+    })
+    let current_number=Math.max(...note_orders);
+    
+    
+    console.log(note_orders, "note orderss",current_number);
+    return current_number;
 }
 
 
@@ -532,13 +552,14 @@ function getForm(user){
     const category_form=formData.get("category");
     const due_form=formData.get("due");
     const importance_form=formData.get("priority");
-    user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form};
+    user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form,order:user.note_number};
     
     form.reset();
     console.log("hahjkljklçhjk",user.current_notes)
     user.note_number+=1;
     displayNotes(user.current_notes,user.note_number,user.current_note_class);
-    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)("testing2",user.current_notes);
+
+    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)(`note-${user.note_number}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
   });
@@ -686,8 +707,11 @@ const user1= new userInfo();
 (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.getForm)(user1);
 try{
     //change this and fix this part, not working
-    user1.note_number=1;
-    user1.current_note_class="note-1"//getNoteNumber(); 
+
+    //tomorrow, work on creating a for loop that displays all of the notes,
+    //and remove the current note class thing, only use note number
+    user1.note_number=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNoteNumber)();
+    user1.current_note_class=""; 
     console.log(user1.current_notes,"current notes ------",user1.note_number);
     (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayNotes)(user1.past_notes,user1.note_number,user1.current_note_class);
     

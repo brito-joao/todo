@@ -16,13 +16,14 @@ export function getForm(user){
     const category_form=formData.get("category");
     const due_form=formData.get("due");
     const importance_form=formData.get("priority");
-    user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form};
+    user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form,order:user.note_number};
     
     form.reset();
     console.log("hahjkljklçhjk",user.current_notes)
     user.note_number+=1;
     displayNotes(user.current_notes,user.note_number,user.current_note_class);
-    storeNotes("testing2",user.current_notes);
+
+    storeNotes(`note-${user.note_number}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
   });

@@ -29,8 +29,11 @@ const user1= new userInfo();
 getForm(user1);
 try{
     //change this and fix this part, not working
-    user1.note_number=1;
-    user1.current_note_class="note-1"//getNoteNumber(); 
+
+    //tomorrow, work on creating a for loop that displays all of the notes,
+    //and remove the current note class thing, only use note number
+    user1.note_number=getNoteNumber();
+    user1.current_note_class=""; 
     console.log(user1.current_notes,"current notes ------",user1.note_number);
     displayNotes(user1.past_notes,user1.note_number,user1.current_note_class);
     
