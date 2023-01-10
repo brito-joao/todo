@@ -505,7 +505,7 @@ function getNoteNumber(){
     }
     console.log(notes,"the value");
     
-    return findNoteNumber(notes);
+    return [notes,findNoteNumber(notes)];
 }
 
 function findNoteNumber(notes){
@@ -530,6 +530,7 @@ function findNoteNumber(notes){
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "deleteNotes": () => (/* binding */ deleteNotes),
+/* harmony export */   "displayArrayNotes": () => (/* binding */ displayArrayNotes),
 /* harmony export */   "displayNotes": () => (/* binding */ displayNotes),
 /* harmony export */   "getForm": () => (/* binding */ getForm)
 /* harmony export */ });
@@ -556,44 +557,48 @@ function getForm(user){
     
     form.reset();
     console.log("hahjkljklçhjk",user.current_notes)
-    user.note_number+=1;
-    displayNotes(user.current_notes,user.note_number,user.current_note_class);
+    user.current_notes.order+=1;
+    displayNotes(user.current_notes);
 
-    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)(`note-${user.note_number}`,user.current_notes);
+    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)(`note-${user.current_notes.order}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
   });
 
 }
+//get the list of numbers , then loop through the classes
 
-
-function displayNotes(note_to_display,note_number,note_class){
+function displayNotes(note_to_display){
+  let note_class=`note-${note_to_display.order}`;
+  console.log("note to dispaly",note_class);
   const notes= document.querySelector(".notes");
-  console.log(note_number,"hahaha",note_to_display.title,note_class);
+  console.log(note_to_display.order,"hahaha",note_to_display.title,note_class);
   
-  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
-  deleteNotes();
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button ${note_class}' value='${note_class}'>remove</button></div>`;
+  deleteNotes(note_class,note_to_display);
   
-  console.log(note_number,"heeasdflksjdhfalsd note num");
-  (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNoteNumber)(note_number);
+  console.log(note_to_display.order,"heeasdflksjdhfalsd note num");
+  
 
 }
-function deleteNotes(){
+function deleteNotes(note_class,notes){
+  console.log("hello woeldasdajsdçlkjasçfldkj");
+  let button=document.querySelector(`.button.note-${notes.order}`);
+  console.log(button,"heasldkjfalfsçlkd");
   
-  const button=document.querySelector(`.button`);
   button.addEventListener("click",()=>{
-    
-    console.log("note correct",button.value,"jalasd");
-    const note=document.querySelector(`.${button.value}`);
-    
-    note.remove();
-    //change this to the correct address; already changed
-    (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.removeNotes)(button.value);
-    
+    console.log(note_class,"hello asflkjsdçlfkjasdljfasçldkfjaçsldkjfçaslkdjfç");
   })
-  
 }
 
+
+function displayArrayNotes(){
+  let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[0];
+  array.forEach((object)=>{
+    displayNotes(object)
+  })
+
+}
 
 /***/ })
 /******/ 	]);
@@ -710,10 +715,9 @@ try{
 
     //tomorrow, work on creating a for loop that displays all of the notes,
     //and remove the current note class thing, only use note number
-    user1.note_number=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNoteNumber)();
-    user1.current_note_class=""; 
-    console.log(user1.current_notes,"current notes ------",user1.note_number);
-    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayNotes)(user1.past_notes,user1.note_number,user1.current_note_class);
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayArrayNotes)();
+    console.log(user1.current_notes,"current notes ------");
+    
     
     console.log("current note",user1.current_notes)
 } catch (error){
