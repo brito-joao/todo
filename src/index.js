@@ -1,6 +1,6 @@
 import "./style.scss";
 import { storeNotes, getNotes, removeNotes,getNoteNumber } from "./local_storage";
-import { getForm, displayNotes} from "./user_inputs";
+import { getForm, displayArrayNotes} from "./user_inputs";
 console.log("hello world");
 
 
@@ -32,10 +32,9 @@ try{
 
     //tomorrow, work on creating a for loop that displays all of the notes,
     //and remove the current note class thing, only use note number
-    user1.note_number=getNoteNumber();
-    user1.current_note_class=""; 
-    console.log(user1.current_notes,"current notes ------",user1.note_number);
-    displayNotes(user1.past_notes,user1.note_number,user1.current_note_class);
+    displayArrayNotes();
+    console.log(user1.current_notes,"current notes ------");
+    
     
     console.log("current note",user1.current_notes)
 } catch (error){

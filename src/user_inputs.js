@@ -1,4 +1,4 @@
-import { storeNotes , removeNotes, storeNoteNumber} from "./local_storage";
+import { storeNotes , removeNotes, storeNoteNumber, getNoteNumber} from "./local_storage";
 
 export function getForm(user){
     
@@ -20,40 +20,45 @@ export function getForm(user){
     
     form.reset();
     console.log("hahjkljklçhjk",user.current_notes)
-    user.note_number+=1;
-    displayNotes(user.current_notes,user.note_number,user.current_note_class);
+    user.current_notes.order+=1;
+    displayNotes(user.current_notes);
 
-    storeNotes(`note-${user.note_number}`,user.current_notes);
+    storeNotes(`note-${user.current_notes.order}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
   });
 
 }
+//get the list of numbers , then loop through the classes
 
-
-export function displayNotes(note_to_display,note_number,note_class){
+export function displayNotes(note_to_display){
+  let note_class=`note-${note_to_display.order}`;
+  console.log("note to dispaly",note_class);
   const notes= document.querySelector(".notes");
-  console.log(note_number,"hahaha",note_to_display.title,note_class);
+  console.log(note_to_display.order,"hahaha",note_to_display.title,note_class);
   
-  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
-  deleteNotes();
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button ${note_class}' value='${note_class}'>remove</button></div>`;
+  deleteNotes(note_class,note_to_display);
   
-  console.log(note_number,"heeasdflksjdhfalsd note num");
-  storeNoteNumber(note_number);
+  console.log(note_to_display.order,"heeasdflksjdhfalsd note num");
+  
 
 }
-export function deleteNotes(){
+export function deleteNotes(note_class,notes){
+  console.log("hello woeldasdajsdçlkjasçfldkj");
+  let button=document.querySelector(`.button.note-${notes.order}`);
+  console.log(button,"heasldkjfalfsçlkd");
   
-  const button=document.querySelector(`.button`);
   button.addEventListener("click",()=>{
-    
-    console.log("note correct",button.value,"jalasd");
-    const note=document.querySelector(`.${button.value}`);
-    
-    note.remove();
-    //change this to the correct address; already changed
-    removeNotes(button.value);
-    
+    console.log(note_class,"hello asflkjsdçlfkjasdljfasçldkfjaçsldkjfçaslkdjfç");
   })
-  
+}
+
+
+export function displayArrayNotes(){
+  let array=getNoteNumber()[0];
+  array.forEach((object)=>{
+    displayNotes(object)
+  })
+
 }

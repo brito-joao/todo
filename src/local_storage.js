@@ -36,7 +36,7 @@ export function getNoteNumber(){
     }
     console.log(notes,"the value");
     
-    return findNoteNumber(notes);
+    return [notes,findNoteNumber(notes)];
 }
 
 function findNoteNumber(notes){
