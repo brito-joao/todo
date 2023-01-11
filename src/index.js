@@ -1,7 +1,7 @@
 import "./style.scss";
 import { storeNotes, getNotes, removeNotes,getNoteNumber } from "./local_storage";
 import { getForm, displayArrayNotes} from "./user_inputs";
-console.log("hello world");
+
 
 
 
@@ -27,21 +27,14 @@ function userInfo(){
 }
 const user1= new userInfo();
 getForm(user1);
-try{
-    //change this and fix this part, not working
 
-    //tomorrow, work on creating a for loop that displays all of the notes,
-    //and remove the current note class thing, only use note number
+if(isEmpty()==false){
     displayArrayNotes();
-    console.log(user1.current_notes,"current notes ------");
-    
-    
-    console.log("current note",user1.current_notes)
-} catch (error){
-    console.log(error);
-    user1.current_notes=0;
 }
 
-
-//user1.current_notes=getNoteNumber();
-console.log(user1.current_notes);
+//put this on other file
+function isEmpty(){
+    let array=getNoteNumber()[0];
+    
+    return array.length>0? false:true;
+}

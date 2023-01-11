@@ -28,19 +28,16 @@ export function getNoteNumber(){
         const key= localStorage.key(i);
         if(key.startsWith("note")){
             const value= JSON.parse(localStorage.getItem(key));
-            console.log(`${key}:${value} olha isso`);
             
             notes.push(value)
             
         }
     }
-    console.log(notes,"the value");
     
     return [notes,findNoteNumber(notes)];
 }
 
 function findNoteNumber(notes){
-    console.log(notes);
     let note_orders=[];
     notes.forEach((item)=>{
         note_orders.push(item.order);
@@ -49,6 +46,5 @@ function findNoteNumber(notes){
     let current_number=Math.max(...note_orders);
     
     
-    console.log(note_orders, "note orderss",current_number);
     return current_number;
 }

@@ -497,19 +497,16 @@ function getNoteNumber(){
         const key= localStorage.key(i);
         if(key.startsWith("note")){
             const value= JSON.parse(localStorage.getItem(key));
-            console.log(`${key}:${value} olha isso`);
             
             notes.push(value)
             
         }
     }
-    console.log(notes,"the value");
     
     return [notes,findNoteNumber(notes)];
 }
 
 function findNoteNumber(notes){
-    console.log(notes);
     let note_orders=[];
     notes.forEach((item)=>{
         note_orders.push(item.order);
@@ -518,7 +515,6 @@ function findNoteNumber(notes){
     let current_number=Math.max(...note_orders);
     
     
-    console.log(note_orders, "note orderss",current_number);
     return current_number;
 }
 
@@ -539,7 +535,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function getForm(user){
     
-    const form = document.querySelector('#form');
+  const form = document.querySelector('#form');
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -548,7 +544,6 @@ function getForm(user){
 
     
     const title_form = formData.get('title');
-    console.log(title_form);
     const description_form= formData.get("description");
     const category_form=formData.get("category");
     const due_form=formData.get("due");
@@ -556,10 +551,10 @@ function getForm(user){
     user.current_notes={title:title_form, description:description_form, category:category_form, due:due_form,importance:importance_form,order:user.note_number};
     
     form.reset();
-    console.log("hahjkljklçhjk",user.current_notes)
+    user.current_notes.order=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[1]>0 ? (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[1]: 0;
     user.current_notes.order+=1;
     displayNotes(user.current_notes);
-
+    console.log(user.current_notes.order,"hello world");
     (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)(`note-${user.current_notes.order}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
@@ -570,34 +565,42 @@ function getForm(user){
 
 function displayNotes(note_to_display){
   let note_class=`note-${note_to_display.order}`;
-  console.log("note to dispaly",note_class);
   const notes= document.querySelector(".notes");
-  console.log(note_to_display.order,"hahaha",note_to_display.title,note_class);
   
-  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button ${note_class}' value='${note_class}'>remove</button></div>`;
-  deleteNotes(note_class,note_to_display);
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
   
-  console.log(note_to_display.order,"heeasdflksjdhfalsd note num");
+  
   
 
 }
-function deleteNotes(note_class,notes){
-  console.log("hello woeldasdajsdçlkjasçfldkj");
-  let button=document.querySelector(`.button.note-${notes.order}`);
-  console.log(button,"heasldkjfalfsçlkd");
+
+
+function deleteNotes(){
   
-  button.addEventListener("click",()=>{
-    console.log(note_class,"hello asflkjsdçlfkjasdljfasçldkfjaçsldkjfçaslkdjfç");
+  let buttons=document.querySelectorAll(`.button`);
+  
+  
+  buttons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+      removeDisplayNotes(button.value);
+    });
   })
+    
+  
 }
-
+function removeDisplayNotes(note_class){
+  const note=document.querySelector(`.${note_class}`);
+  note.remove();
+  (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.removeNotes)(note_class);
+}
 
 function displayArrayNotes(){
   let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[0];
+
   array.forEach((object)=>{
     displayNotes(object)
   })
-
+  deleteNotes();
 }
 
 /***/ })
@@ -684,7 +687,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log("hello world");
+
 
 
 
@@ -710,25 +713,17 @@ function userInfo(){
 }
 const user1= new userInfo();
 (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.getForm)(user1);
-try{
-    //change this and fix this part, not working
 
-    //tomorrow, work on creating a for loop that displays all of the notes,
-    //and remove the current note class thing, only use note number
+if(isEmpty()==false){
     (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayArrayNotes)();
-    console.log(user1.current_notes,"current notes ------");
-    
-    
-    console.log("current note",user1.current_notes)
-} catch (error){
-    console.log(error);
-    user1.current_notes=0;
 }
 
-
-//user1.current_notes=getNoteNumber();
-console.log(user1.current_notes);
-
+//put this on other file
+function isEmpty(){
+    let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNoteNumber)()[0];
+    
+    return array.length>0? false:true;
+}
 })();
 
 /******/ })()
