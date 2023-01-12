@@ -1,4 +1,5 @@
 import { storeNotes , removeNotes, storeNoteNumber, getNoteNumber} from "./local_storage";
+import { createFormHtml, defaultPage } from "./page_generation";
 
 export function getForm(user){
     
@@ -21,7 +22,7 @@ export function getForm(user){
     user.current_notes.order=getNoteNumber()[1]>0 ? getNoteNumber()[1]: 0;
     user.current_notes.order+=1;
     displayNotes(user.current_notes);
-    console.log(user.current_notes.order,"hello world");
+    
     storeNotes(`note-${user.current_notes.order}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
@@ -34,7 +35,7 @@ export function displayNotes(note_to_display){
   let note_class=`note-${note_to_display.order}`;
   const notes= document.querySelector(".notes");
   
-  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>Remove</button></div>`;
   
   
   
@@ -68,4 +69,66 @@ export function displayArrayNotes(){
     displayNotes(object)
   })
   deleteNotes();
+}
+function loadNotesDiv(){
+  const body=document.querySelector("body");
+
+  const notes=document.createElement("div");
+  notes.setAttribute("class","notes");
+  body.appendChild(notes);
+}
+export function loadAllNotes(){
+  const body=document.querySelector("body");
+  body.innerHTML="";
+  loadMenu();
+  menuClickEvent();
+  loadNotesDiv();
+  if(isEmpty()==false){
+      displayArrayNotes();
+  }
+
+  
+  
+}
+function isEmpty(){
+      let array=getNoteNumber()[0];
+      
+      return array.length>0? false:true;
+  }
+export function menuClickEvent(){
+  const buttons = document.querySelectorAll("li");
+  let options=["New","All Notes","About"];
+  buttons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+      console.log(button.innerText);
+
+      options[0]==button.innerText?createFormHtml()
+      :options[1]==button.innerText?loadAllNotes()
+      :options[2]==button.innerText?defaultPage()
+      :{};
+
+
+
+    })
+  })
+}
+
+export function loadMenu(){
+  const body= document.querySelector("body");
+  var ul = document.createElement("ul");
+  ul.setAttribute("class", "menu");
+  
+  var li1 = document.createElement("li");
+  li1.innerHTML = "New";
+  
+  var li2 = document.createElement("li");
+  li2.innerHTML = "All Notes";
+  
+  var li3 = document.createElement("li");
+  li3.innerHTML = "About";
+  
+  ul.appendChild(li1);
+  ul.appendChild(li2);
+  ul.appendChild(li3);
+  body.appendChild(ul);
 }
