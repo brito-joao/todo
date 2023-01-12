@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  color: white;\n  max-width: 100vh;\n  background-color: black;\n}\nbody .title1 {\n  text-align: center;\n}\nbody form {\n  border: solid red;\n  padding: 0.3em;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\nbody form input {\n  border-radius: 0.5em;\n  padding-left: 0.5em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n}\nbody form * {\n  width: 13vh;\n}\n\n.span-3 {\n  grid-column: span 3;\n  width: 40vh;\n}\n\n.notes {\n  color: white;\n}\n.notes .note {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  border: solid red;\n  gap: 0;\n}\n.notes .title {\n  font-size: 1.2rem;\n}\n.notes .description {\n  font-size: 0.9rem;\n}\n.notes div {\n  display: flex;\n  gap: 1em;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n}\n\nbody {\n  color: black;\n  max-width: 100vw;\n  font-family: system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\n}\nbody .greeting {\n  text-align: center;\n  margin-top: 1em;\n  font-size: 2rem;\n}\nbody .instruction {\n  font-size: 1.3rem;\n  text-align: center;\n  margin-top: 1em;\n  margin-bottom: 2em;\n}\nbody .link {\n  background-color: red;\n  color: white;\n  font-size: 2rem;\n  text-align: center;\n  border-radius: 2em;\n  padding-left: 1em;\n  padding-right: 1em;\n  padding-top: 0.1em;\n  padding-bottom: 0.1em;\n  margin: 2em;\n  text-decoration: none;\n}\nbody .menu {\n  display: flex;\n  font-size: 1.9rem;\n  gap: 1em;\n  list-style-type: none;\n  justify-content: center;\n}\nbody .menu li {\n  margin-top: 0.5em;\n  padding-right: 0.3em;\n  border-right: solid red;\n  border-bottom: solid red;\n}\nbody .title1 {\n  text-align: center;\n}\nbody form {\n  padding: 0.3em;\n  display: flex;\n  padding: 1em;\n  flex-direction: column;\n}\nbody form .span-3 {\n  font-size: 1rem;\n  min-width: 90vw;\n  margin-bottom: 0.3em;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-radius: 0;\n}\nbody form input {\n  border-radius: 0.5em;\n  padding-left: 0.5em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n}\nbody form div {\n  font-size: 1rem;\n  display: flex;\n  margin-left: 0;\n}\nbody form div * {\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  background-color: white;\n  border-bottom: solid 1px black;\n  border-radius: 0;\n  max-width: 32vw;\n}\nbody form .submit {\n  background-color: rgb(228, 55, 55);\n  color: white;\n  font-size: 1.2rem;\n  border-radius: 3em;\n  padding-top: 0.6em;\n  padding-bottom: 0.6em;\n  min-width: 12em;\n  max-width: 22em;\n  border: none;\n  box-shadow: 0px 20px 25px -13px rgb(255, 53, 53);\n  margin-bottom: 2em;\n  margin-top: 1em;\n}\n\n.notes {\n  color: white;\n  padding-top: 2em;\n  gap: 1em;\n}\n.notes .note {\n  display: flex;\n  flex-direction: column;\n  padding: 1em;\n  background-color: rgb(55, 55, 255);\n  margin-bottom: 2em;\n}\n.notes .title {\n  font-size: 1.2rem;\n}\n.notes .description {\n  font-size: 0.9rem;\n}\n.notes div {\n  display: flex;\n  gap: 1em;\n}\n.notes button {\n  max-width: 20vw;\n  margin-left: 72%;\n  background-color: rgb(228, 55, 55);\n  color: white;\n  font-size: 0.9rem;\n  border-radius: 3em;\n  padding-top: 0.5em;\n  padding-bottom: 0.4em;\n  min-width: 7em;\n  max-width: 12em;\n  border: none;\n  box-shadow: 0px 20px 25px -13px rgb(255, 53, 53);\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -528,9 +528,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "deleteNotes": () => (/* binding */ deleteNotes),
 /* harmony export */   "displayArrayNotes": () => (/* binding */ displayArrayNotes),
 /* harmony export */   "displayNotes": () => (/* binding */ displayNotes),
-/* harmony export */   "getForm": () => (/* binding */ getForm)
+/* harmony export */   "getForm": () => (/* binding */ getForm),
+/* harmony export */   "loadAllNotes": () => (/* binding */ loadAllNotes),
+/* harmony export */   "loadMenu": () => (/* binding */ loadMenu),
+/* harmony export */   "menuClickEvent": () => (/* binding */ menuClickEvent)
 /* harmony export */ });
 /* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _page_generation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
+
 
 
 function getForm(user){
@@ -554,7 +559,7 @@ function getForm(user){
     user.current_notes.order=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[1]>0 ? (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[1]: 0;
     user.current_notes.order+=1;
     displayNotes(user.current_notes);
-    console.log(user.current_notes.order,"hello world");
+    
     (0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.storeNotes)(`note-${user.current_notes.order}`,user.current_notes);
 
     //create a function that makes an html thing for the todos
@@ -567,7 +572,7 @@ function displayNotes(note_to_display){
   let note_class=`note-${note_to_display.order}`;
   const notes= document.querySelector(".notes");
   
-  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>remove</button></div>`;
+  notes.innerHTML+=`<div class='note ${note_class}'><p class='title'>${note_to_display.title}</p><p class='description'>${note_to_display.description}</p><div><p class='others'>${note_to_display.category}</p><p class='others'>${note_to_display.due}</p><p class='others'>${note_to_display.importance}</p></div><button class='button' value='${note_class}'>Remove</button></div>`;
   
   
   
@@ -601,6 +606,238 @@ function displayArrayNotes(){
     displayNotes(object)
   })
   deleteNotes();
+}
+function loadNotesDiv(){
+  const body=document.querySelector("body");
+
+  const notes=document.createElement("div");
+  notes.setAttribute("class","notes");
+  body.appendChild(notes);
+}
+function loadAllNotes(){
+  const body=document.querySelector("body");
+  body.innerHTML="";
+  loadMenu();
+  menuClickEvent();
+  loadNotesDiv();
+  if(isEmpty()==false){
+      displayArrayNotes();
+  }
+
+  
+  
+}
+function isEmpty(){
+      let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[0];
+      
+      return array.length>0? false:true;
+  }
+function menuClickEvent(){
+  const buttons = document.querySelectorAll("li");
+  let options=["New","All Notes","About"];
+  buttons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+      console.log(button.innerText);
+
+      options[0]==button.innerText?(0,_page_generation__WEBPACK_IMPORTED_MODULE_1__.createFormHtml)()
+      :options[1]==button.innerText?loadAllNotes()
+      :options[2]==button.innerText?(0,_page_generation__WEBPACK_IMPORTED_MODULE_1__.defaultPage)()
+      :{};
+
+
+
+    })
+  })
+}
+
+function loadMenu(){
+  const body= document.querySelector("body");
+  var ul = document.createElement("ul");
+  ul.setAttribute("class", "menu");
+  
+  var li1 = document.createElement("li");
+  li1.innerHTML = "New";
+  
+  var li2 = document.createElement("li");
+  li2.innerHTML = "All Notes";
+  
+  var li3 = document.createElement("li");
+  li3.innerHTML = "About";
+  
+  ul.appendChild(li1);
+  ul.appendChild(li2);
+  ul.appendChild(li3);
+  body.appendChild(ul);
+}
+
+/***/ }),
+/* 13 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createFormHtml": () => (/* binding */ createFormHtml),
+/* harmony export */   "defaultPage": () => (/* binding */ defaultPage)
+/* harmony export */ });
+/* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
+/* harmony import */ var _user_inputs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+
+
+
+
+
+function createFormHtml(){
+    
+    const body=document.querySelector("body");
+    body.innerHTML="";
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.loadMenu)();
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.menuClickEvent)();
+    var form = document.createElement("form");
+    form.setAttribute("id", "form");
+
+    var input1 = document.createElement("input");
+    input1.setAttribute("class", "span-3");
+    input1.setAttribute("type", "text");
+    input1.setAttribute("id", "title");
+    input1.setAttribute("name", "title");
+    input1.setAttribute("placeholder", "title");
+
+    var input2 = document.createElement("input");
+    input2.setAttribute("class", "span-3");
+    input2.setAttribute("type", "text");
+    input2.setAttribute("id", "description");
+    input2.setAttribute("name", "description");
+    input2.setAttribute("placeholder", "description");
+
+    var div = document.createElement("div");
+
+    var input3 = document.createElement("input");
+    input3.setAttribute("type", "text");
+    input3.setAttribute("id", "category");
+    input3.setAttribute("name", "category");
+    input3.setAttribute("placeholder", "category");
+
+    var select1 = document.createElement("select");
+    select1.setAttribute("id", "Due");
+    select1.setAttribute("name", "due");
+
+    var option1 = document.createElement("option");
+    option1.setAttribute("value", "today");
+    option1.innerHTML = "today";
+
+    var option2 = document.createElement("option");
+    option2.setAttribute("value", "tomorrow");
+    option2.innerHTML = "tomorrow";
+
+    var option3 = document.createElement("option");
+    option3.setAttribute("value", "after-tomorrow");
+    option3.innerHTML = "after tomorrow";
+
+    var option4 = document.createElement("option");
+    option4.setAttribute("value", "a week");
+    option4.innerHTML = "a week";
+
+    select1.appendChild(option1);
+    select1.appendChild(option2);
+    select1.appendChild(option3);
+    select1.appendChild(option4);
+
+    var select2 = document.createElement("select");
+    select2.setAttribute("id", "priority");
+    select2.setAttribute("name", "priority");
+
+    var option5 = document.createElement("option");
+    option5.setAttribute("value", "important");
+    option5.innerHTML = "important";
+
+    var option6 = document.createElement("option");
+    option6.setAttribute("value", "not-important");
+    option6.innerHTML = "not important";
+
+    var option7 = document.createElement("option");
+    option7.setAttribute("value", "very-important");
+    option7.innerHTML = "very important";
+
+    select2.appendChild(option5);
+    select2.appendChild(option6);
+    select2.appendChild(option7);
+
+    var input4 = document.createElement("input");
+    input4.setAttribute("class", "span-3 submit");
+    input4.setAttribute("type", "submit");
+    input4.setAttribute("value", "Add Note");
+
+    div.appendChild(input3);
+    div.appendChild(select1);
+    div.appendChild(select2);
+
+    form.appendChild(input1);
+    form.appendChild(input2);
+    form.appendChild(div)
+    var notes= document.createElement("div");
+    notes.setAttribute("class","notes");
+
+    
+    form.appendChild(input4);
+    
+    
+    body.appendChild(form);
+    body.appendChild(notes);
+
+    function userInfo(){
+        //notes will be the main array that stores all note objects
+        this.past_notes=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNotes)("testing2");  
+        this.all_notes=[];
+        this.current_notes=0;
+        this.note_number=0;
+        this.current_note_class="";
+        //add a function that loads current note number
+    
+    
+    }
+    const user1= new userInfo();
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.getForm)(user1);
+    
+    if(isEmpty()==false){
+        (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.displayArrayNotes)();
+    }
+    
+    //put this on other file
+    function isEmpty(){
+        let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_0__.getNoteNumber)()[0];
+        
+        return array.length>0? false:true;
+    }
+}
+
+function defaultPage(){
+    const body=document.querySelector("body");
+    body.innerHTML="";
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.loadMenu)();
+    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_1__.menuClickEvent)();
+    
+    var currentTime = new Date().getHours();
+
+    
+    var greeting = document.createElement("p");
+    greeting.setAttribute("class","greeting");
+    
+    if (currentTime < 12) {
+    greeting.innerText = "Good morning!";
+    } else if (currentTime < 18) {
+    greeting.innerText = "Good afternoon!";
+    } else {
+    greeting.innerText = "Good evening!";
+    }
+
+    var instruction=document.createElement("p");
+    instruction.setAttribute("class","instruction");
+    instruction.innerText="To create notes click 'New' on the menu";
+
+    
+    body.appendChild(greeting);
+    body.appendChild(instruction);
+    document.body.appendChild(Object.assign(document.createElement("a"), { href: "http://github.com/brito-joao?tab=repositories", innerText: "My Github", className:"link" }))
 }
 
 /***/ })
@@ -684,6 +921,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _local_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var _user_inputs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _page_generation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
 
 
 
@@ -700,30 +938,9 @@ __webpack_require__.r(__webpack_exports__);
 //const test2= {title:"clean house",description:"clean like it's the president's house", category:"crazy",due:"today",importance:"important" }
 //storeNotes("testing1",test2);
 
-function userInfo(){
-    //notes will be the main array that stores all note objects
-    this.past_notes=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNotes)("testing2");  
-    this.all_notes=[];
-    this.current_notes=0;
-    this.note_number=0;
-    this.current_note_class="";
-    //add a function that loads current note number
-
-
-}
-const user1= new userInfo();
-(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.getForm)(user1);
-
-if(isEmpty()==false){
-    (0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.displayArrayNotes)();
-}
-
-//put this on other file
-function isEmpty(){
-    let array=(0,_local_storage__WEBPACK_IMPORTED_MODULE_1__.getNoteNumber)()[0];
-    
-    return array.length>0? false:true;
-}
+(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.loadMenu)();
+(0,_user_inputs__WEBPACK_IMPORTED_MODULE_2__.menuClickEvent)();
+(0,_page_generation__WEBPACK_IMPORTED_MODULE_3__.defaultPage)();
 })();
 
 /******/ })()
